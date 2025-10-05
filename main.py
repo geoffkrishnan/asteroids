@@ -20,7 +20,7 @@ def main():
 
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
-    asteroid_field = AsteroidField()
+    asteroid_field = AsteroidField()  # noqa: F841 #pyright: ignore
 
     Player.containers = (updatable, drawable)  # noqa: F405
     Shot.containers = (shots, updatable, drawable)  # noqa: F405
@@ -41,6 +41,11 @@ def main():
             if ast.collision(player):
                 print("Game over!")
                 sys.exit()
+
+            for bullet in shots:
+                if ast.collision(bullet):
+                    ast.split()
+                    bullet.kill()
 
         for obj in drawable:
             obj.draw(screen)
